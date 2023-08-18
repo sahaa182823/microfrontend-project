@@ -7,6 +7,16 @@ on:
     paths:
       - "packages/container/**"
 
+on:
+  workflow_dispatch:
+    inputs:
+      loglevel:
+        description:  'Log level'
+        required: true
+        default:  'warning'
+      tags:
+        description: 'Test scenario tags'  
+
 defaults:
   run:
     working-directory: packages/container
