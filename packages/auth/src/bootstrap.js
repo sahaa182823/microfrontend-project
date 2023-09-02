@@ -4,7 +4,7 @@ import { createMemoryHistory, createBrowserHistory } from 'history';  // this is
 import App from './App';
 
 // Mount function to start up the app
-const mount = (el,{ onNavigate, defaultHistory, initialPath }) => {
+const mount = (el,{onSignIn, onNavigate, defaultHistory, initialPath }) => {
 
     // defaultHistory only be provided when we are in isolation other wise parent callback method onNavigate()
     const history = defaultHistory || createMemoryHistory({ initialEntries: [initialPath], }); // createMemoryHistory will create initial path coming from props not '/' anymore
@@ -12,9 +12,10 @@ const mount = (el,{ onNavigate, defaultHistory, initialPath }) => {
     if(onNavigate){ // this check is just for running app in isolation bcz onNavigate() callback is there in parent app
     history.listen(onNavigate); // this listen function will call onNavigate() in container app and sync memory hiostory with browser history
     }
-    ReactDOM.render(<App history={history} />,el);
+    
+    ReactDOM.render(<App history={history} onSignIn={onSignIn}/>,el);
 
-    return {
+    return {  // as a method return we are returning a callback function
         onParentNavigate({pathname: nextPathname}) {
             const {pathname} = history.location;            
             if(pathname !== nextPathname){
@@ -26,10 +27,10 @@ const mount = (el,{ onNavigate, defaultHistory, initialPath }) => {
 
 // if we are in development and in isolation,
 // call mount immediately
-if(process.env.NODE_ENV === 'development'){
-    const devRoot = document.querySelector('#_marketing-dev-root');
+if(process.env.NODE_ENV === 'development'){    
+    const devRoot = document.querySelector('#_auth-dev-root');
 
-    if(devRoot){
+    if(devRoot){      
         mount(devRoot, {  defaultHistory: createBrowserHistory() });    // defaultHistory contains browser history
     }
 }

@@ -1,8 +1,8 @@
-import { mount } from 'marketing/MarketingApp';
+import { mount } from 'auth/AuthApp';
 import React, {useRef, useEffect} from 'react';
 import { useHistory } from 'react-router-dom';
 
-export default () => {
+export default ({ onSignIn }) => {
 
     const ref = useRef(null);
     const history = useHistory(); // this is a copy of browser history
@@ -16,7 +16,8 @@ export default () => {
                 if(pathname !== nextPathName){ // this is just to prevent infinite loop issue
                     history.push(nextPathName);
                 }               
-            }
+            },
+            onSignIn,
         });
 
         history.listen(onParentNavigate);
