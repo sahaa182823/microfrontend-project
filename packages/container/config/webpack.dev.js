@@ -19,7 +19,8 @@ const devConfig = {
             name: 'container',
             remotes: {
                 marketing: 'marketing@http://localhost:8081/remoteEntry.js',
-                auth: 'auth@http://localhost:8082/remoteEntry.js'
+                auth: 'auth@http://localhost:8082/remoteEntry.js',
+                dashboard: 'dashboard@http://localhost:8083/remoteEntry.js'
             },
             //shared: ['react', 'react-dom'], evrytime if you dont want to make entry of shared dependencies follow below syntax
             shared: packageJson.dependencies,  // this also reduce memory consumpsion in browser caused by js
